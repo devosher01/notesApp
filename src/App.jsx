@@ -1,6 +1,5 @@
 import React from 'react';
-import LogIn from './components/login_card';
-import Signin from './pages/LoginPage';
+import LogIn from './pages/LoginPage';
 
 function App() {
   return (
