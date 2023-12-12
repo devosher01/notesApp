@@ -28,9 +28,9 @@ export default function SignUpPage() {
                     </form>
                     <div className="flex justify-center mt-4">
                         <p className="text-black">Already have an account?</p>
-                        <Link className="underline text-black ml-2" to="/login">
+                        {/* <Link className="underline text-black ml-2" to="/login">
                             Login
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>

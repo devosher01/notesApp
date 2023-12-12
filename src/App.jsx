@@ -1,10 +1,10 @@
 import React from 'react';
-import LogIn from './pages/LoginPage';
+import Signin from './pages/LoginPage';
 
 function App() {
   return (
     <div className='h-screen flex justify-center items-center'>
-      < LogIn></LogIn>
+      <Signin></Signin>    
     </div>
   );
 }

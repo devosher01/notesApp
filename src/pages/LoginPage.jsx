@@ -1,6 +1,5 @@
 import React from "react";
-import CustomInput from "./custom_input";
-import { Link } from 'react-router-dom'; // Asegúrate de importar Link de 'react-router-dom'
+import CustomInput from "../components/custom_input";
 
 export default function LoginCard() {
     return (
