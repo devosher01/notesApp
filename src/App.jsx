@@ -1,11 +1,18 @@
 import React from 'react';
-import Signin from './pages/LoginPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage'; 
+import NotesPage from './pages/NotesPage';
 
 function App() {
   return (
-    <div className='h-screen flex justify-center items-center'>
-      <Signin></Signin>    
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path='/notes' element={<NotesPage/>}/>
+      </Routes>
+    </Router>
   );
 }
 

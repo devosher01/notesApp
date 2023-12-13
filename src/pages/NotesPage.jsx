@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NoteFormCard from "../components/note_form_card";
 import FilterCategories from "../components/filter_categorie";
 import Tabs from "../components/tabs";
+import NoteCard from "../components/note_card";
 
 export default function NotesPage() {
     const [activeTab, setActiveTab] = useState("active");
@@ -33,6 +34,7 @@ export default function NotesPage() {
                         handleArchive={handleArchive}
                         handleDelete={handleDelete}
                     />
+                <NoteCard></NoteCard>
                 </div>
             </div>
         </div>
