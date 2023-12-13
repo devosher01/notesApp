@@ -24,9 +24,10 @@ export default function NotesPage() {
             }));
             setNotes(transformedNotes);
         };
-
+    
         fetchNotes();
     }, []);
+    
 
 
     const handleEdit = () => {
@@ -40,7 +41,7 @@ export default function NotesPage() {
         await updateNote(id, updatedNote);
         setNotes(notes.map(note => note.id === id ? updatedNote : note));
     };
-    
+
     const handleDelete = async (id) => {
         console.log("Deleting note with id", id);
         await deleteNote(id);
@@ -52,11 +53,23 @@ export default function NotesPage() {
         (selectedCategories.length === 0 ? true : selectedCategories.every(catId => note.category.includes(catId)))
     );
 
+    const handleNoteCreated = async (newNote) => {
+        // Actualiza el estado de las notas obteniendo una copia actualizada desde la API
+        const updatedNotes = await getNotes();
+        setNotes(updatedNotes.map(note => ({
+            id: note.ID,
+            title: note.Title,
+            content: note.Description,
+            archived: note.IsArchived,
+            category: note.Categories
+        })));
+    };
+
     return (
         <div className="container mx-auto p-4 bg-white-100 min-h-screen">
             <div className="grid grid-cols-4 gap-4">
                 <div className="col-span-1">
-                    <NoteFormCard />
+                    <NoteFormCard onNoteCreated = {handleNoteCreated} />
                 </div>
                 <div className="col-span-3">
                     <FilterCategories selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} /> {}

@@ -18,7 +18,7 @@ export default function NoteCard({ title, content, category,archived, onEdit, on
         <div className="rounded-lg border mb-4 bg-card text-card-foreground shadow-sm">
             <div className="py-4 p-6">
                 <h2 className="m-0 text-xl">{title}</h2>
-                {category.map((catId, index) => {
+                {Array.isArray(category) && category.map((catId, index) => {
                     const cat = categoryData[catId];
                     return (
                         <span key={index} className={`inline-block px-2 py-1 rounded-full text-xs font-medium tracking-widest m-1 ${cat.color}`}>

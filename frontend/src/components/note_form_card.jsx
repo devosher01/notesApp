@@ -1,9 +1,20 @@
-import React, { useState } from "react";
-import { createNote } from "../Api/notes";
+import React, { useEffect, useState } from "react";
+import { createNote, getNotes } from "../Api/notes";
 
-export default function NoteFormCard() {
-    // const categories = ["Trabajo", "Personal", "Ideas", "Recordatorios", "Estudio", "Proyectos", "Salud", "Finanzas", "Viajes", "Compras"];
+export default function NoteFormCard({ onNoteCreated}) {
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            const fetchedNotes = await getNotes();
+            setNotes(fetchedNotes);
+        };
+
+        fetchNotes();
+    }, []);
 
     const categories = [
         { id: 1, name: "Trabajo", color: "bg-blue-200 text-blue-800" },
@@ -18,70 +29,87 @@ export default function NoteFormCard() {
         { id: 10, name: "Compras", color: "bg-gray-200 text-gray-800" },
     ];
 
+
+
+
     const handleSubmit = async () => {
         const note = {
-            title,
-            content,
+            title: title,
+            description: content,
             categories: selectedCategories
         };
-        await createNote(note);
+        const newNote = await createNote(note);
+        
+        onNoteCreated(newNote);
     };
-
+    
+    
     const handleAddCategory = (event) => {
-        const category = event.target.value;
-        if (!selectedCategories.includes(category)) {
-            setSelectedCategories([...selectedCategories, category]);
+        const categoryId = parseInt(event.target.value);
+        if (!selectedCategories.includes(categoryId)) {
+            setSelectedCategories([...selectedCategories, categoryId]);
         }
     };
 
-    const handleRemoveCategory = (category) => {
-        setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    const handleTitleChange = (event) => {
+        setTitle(event.target.value);
     };
 
-    return (
-        <div className="border border-gray-300 rounded  bg-white">
-            <div className="flex flex-col space-y-1.5 p-6">
-                <h3 className="text-2xl font-semibold leading-none tracking-tight">Create/Edit Note</h3>
-            </div>
-            <div className="space-y-2 p-6">
-                <div className="space-y-1">
-                    <label htmlFor="title" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                        Title
-                    </label>
-                    <input defaultValue="" id="title" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+    const handleContentChange = (event) => {
+        setContent(event.target.value);
+    };
+
+    const handleRemoveCategory = (categoryId) => {
+        setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
+    };
+
+        return (
+            <div className="border border-gray-300 rounded  bg-white">
+                <div className="flex flex-col space-y-1.5 p-6">
+                    <h3 className="text-2xl font-semibold leading-none tracking-tight">Create/Edit Note</h3>
                 </div>
-                <div className="space-y-1">
-                    <label htmlFor="content" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                        Content
-                    </label>
-                    <input defaultValue="" id="content" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
-                </div>
-                <div className="space-y-1">
-                    <label htmlFor="categories" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                        Categories
-                    </label>
-                    <select
-                        id="categories"
-                        onChange={handleAddCategory}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                        {categories.map((category, index) => (
-                            <option key={index} value={category}>
-                                {category}
-                            </option>
-                        ))}
-                    </select>
-                    <div>
-                        {selectedCategories.map((category, index) => (
-                            <span key={index} className={`inline-block px-2 py-1 rounded-full text-xs font-medium tracking-widest m-1 ${categoryColors[category]}`}>
-                                {category} <button onClick={() => handleRemoveCategory(category)}>X</button>
-                            </span>
-                        ))}
+                <div className="space-y-2 p-6">
+                    <div className="space-y-1">
+                        <label htmlFor="title" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            Title
+                        </label>
+                        <input defaultValue="" id="title" onChange={handleTitleChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+                    </div>
+                    <div className="space-y-1">
+                        <label htmlFor="content" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            Content
+                        </label>
+                        <textarea defaultValue="" id="content" onChange={handleContentChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+                    </div>
+                    <div className="space-y-1">
+                        <label htmlFor="categories" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                            Categories
+                        </label>
+                        <select
+                            id="categories"
+                            onChange={handleAddCategory}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                        <div>
+                            {selectedCategories.map((categoryId, index) => {
+                                const category = categories.find(cat => cat.id === categoryId);
+                                return (
+                                    <span key={index} className={`inline-block px-2 py-1 rounded-full text-xs font-medium tracking-widest m-1 ${category.color}`}>
+                                        {category.name} <button onClick={() => handleRemoveCategory(category.id)}>X</button>
+                                    </span>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
+                <div className="flex items-center p-6">
+                    <button onClick={handleSubmit} className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-white hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500">Save Note</button>
+                </div>
             </div>
-            <div className="flex items-center p-6">
-                <button onClick={handleSubmit} className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-white hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500">Save Note</button>
-            </div>
-        </div>
-    );
-}
+        );
+    }
