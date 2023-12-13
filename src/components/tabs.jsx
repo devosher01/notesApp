@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Tabs() {
-    const [activeTab, setActiveTab] = useState("active");
-
+export default function Tabs({ activeTab, setActiveTab }) {
     return (
         <div role="tablist" aria-orientation="horizontal" className="h-9 items-center justify-center rounded-lg bg-custom p-1 mb-4 text-muted-foreground grid w-full grid-cols-2">
             <button
@@ -27,16 +25,6 @@ export default function Tabs() {
             >
                 Archived Notes
             </button>
-            {activeTab === "active" && (
-                <div role="tabpanel" aria-labelledby="trigger-active" id="content-active" className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {/* Aquí va el contenido de las notas activas */}
-                </div>
-            )}
-            {activeTab === "archived" && (
-                <div role="tabpanel" aria-labelledby="trigger-archived" id="content-archived" className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {/* Aquí va el contenido de las notas archivadas */}
-                </div>
-            )}
         </div>
     );
 }
