@@ -28,7 +28,12 @@ func UpdateNote(id string, note models.Note) (models.Note, error) {
 	if result.Error != nil {
 		return oldNote, result.Error
 	}
-	result = config.DB.Model(&oldNote).Updates(note)
+	result = config.DB.Model(&oldNote).Updates(map[string]interface{}{
+		"Title":       note.Title,
+		"Description": note.Description,
+		"Categories":  note.Categories,
+		"IsArchived":  note.IsArchived,
+	})
 	return oldNote, result.Error
 }
 

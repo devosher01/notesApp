@@ -4,6 +4,7 @@ import (
 	"github.com/devosher01/backend/pkg/config"
 	"github.com/devosher01/backend/pkg/controllers"
 	"github.com/devosher01/backend/pkg/models"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,10 +12,12 @@ func main() {
 	config.DBConnection()
 	err := config.DB.AutoMigrate(&models.Note{})
 	if err != nil {
-		return
+		panic(err)
 	}
 
 	r := gin.Default()
+
+	r.Use(cors.Default())
 
 	//// User routes
 	//r.GET("/users", controllers.GetUsersHandler)
