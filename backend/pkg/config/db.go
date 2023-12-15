@@ -5,8 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DBS = "host=localhost port=5432 user=postgres dbname=postgres password=qwertyuiop sslmode=disable"
-
+var DBS = "postgres://postgres:C6HrFw2NlYqQbvx@backend-db-1.flycast:5432"
 var DB *gorm.DB
 
 func DBConnection() {

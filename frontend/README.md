@@ -25,6 +25,7 @@ El proyecto utiliza una API para realizar las siguientes peticiones:
 2. Abre tu navegador y visita `http://localhost:5173/`
 
 
+
 ## Contacto
 
 - Nombre: Oscar Javier Hernandez Gomez

@@ -11,6 +11,8 @@ import (
 
 // main is the entry point of the application.
 func main() {
+
+	gin.SetMode(gin.ReleaseMode)
 	// DBConnection establishes a connection to the database.
 	config.DBConnection()
 
@@ -39,6 +41,5 @@ func main() {
 	r.PUT("/notes/:id", middleware.AuthMiddleware(), controllers.UpdateNote)
 	r.DELETE("/notes/:id", middleware.AuthMiddleware(), controllers.DeleteNote)
 
-	// Run the application on port 3000
-	r.Run(":3000")
+	r.Run("0.0.0.0:8080")
 }
