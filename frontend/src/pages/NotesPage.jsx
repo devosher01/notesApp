@@ -33,8 +33,11 @@ export default function NotesPage() {
     
 
 
-    const handleEdit = () => {
-        
+    const handleEdit = async (updatedNote) => {
+        console.log("Editing note with id", updatedNote.id);
+        const token = localStorage.getItem('authToken');
+        await updateNote(updatedNote.id, updatedNote, token);
+        setNotes(notes.map(note => note.id === updatedNote.id ? updatedNote : note));
     };
 
     // const handleArchive = async (id) => {
@@ -114,6 +117,7 @@ export default function NotesPage() {
                     {filteredNotes.map(note => (
                         <NoteCard
                             key={note.id}
+                            id={note.id}
                             title={note.title}
                             content={note.content}
                             category={note.category}

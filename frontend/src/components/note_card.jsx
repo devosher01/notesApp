@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function NoteCard({ title, content, category,archived, onEdit, onArchive, onDelete }) {
+export default function NoteCard({ id, title: initialTitle, content: initialContent, category, archived, onEdit, onArchive, onDelete }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [title, setTitle] = useState(initialTitle);
+    const [content, setContent] = useState(initialContent);
+
     const categoryData = {
         1: { name: "Trabajo", color: "bg-blue-200 text-blue-800" },
         2: { name: "Personal", color: "bg-green-200 text-green-800" },
@@ -14,10 +18,20 @@ export default function NoteCard({ title, content, category,archived, onEdit, on
         10: { name: "Compras", color: "bg-gray-200 text-gray-800" }
     };
 
+    const handleSave = () => {
+        const updatedNote = { id, title, content, category, archived };
+        onEdit(updatedNote);
+        setIsEditing(false);
+    };
+
     return (
         <div className="rounded-lg border mb-4 bg-card text-card-foreground shadow-sm">
             <div className="py-4 p-6">
-                <h2 className="m-0 text-xl">{title}</h2>
+                {isEditing ? (
+                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+                ) : (
+                    <h2 className="m-0 text-xl">{title}</h2>
+                )}
                 {Array.isArray(category) && category.map((catId, index) => {
                     const cat = categoryData[catId];
                     return (
@@ -27,10 +41,20 @@ export default function NoteCard({ title, content, category,archived, onEdit, on
                     );
                 })}
             </div>
-            <div className="py-4 p-6">{content}</div>
+            <div className="py-4 p-6">
+                {isEditing ? (
+                    <textarea value={content} onChange={e => setContent(e.target.value)} />
+                ) : (
+                    content
+                )}
+            </div>
             <div className="py-4 flex justify-between p-6">
                 <div>
-                    <button className="bg-transparent text-black-500 border border-blue-500 py-2 px-4 rounded cursor-pointer" onClick={onEdit}>Edit</button>
+                    {isEditing ? (
+                        <button className="bg-transparent text-black-500 border border-blue-500 py-2 px-4 rounded cursor-pointer" onClick={handleSave}>Save</button>
+                    ) : (
+                        <button className="bg-transparent text-black-500 border border-blue-500 py-2 px-4 rounded cursor-pointer" onClick={() => setIsEditing(true)}>Edit</button>
+                    )}
                     <button className="ml-4 bg-transparent text-black-500 border border-yellow-500 py-2 px-4 rounded cursor-pointer" onClick={onArchive}>{archived ? "Desarchivar" : "Archivar"}</button>
                 </div>
                 <button className="bg-transparent text-black-500 border border-red-500 py-2 px-4 rounded cursor-pointer" onClick={onDelete}>Delete</button>

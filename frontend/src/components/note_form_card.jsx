@@ -71,6 +71,10 @@ const handleSubmit = () => {
         setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
     };
 
+    const handleEdit = () => {
+        console.log("Editing note...");
+    }
+
         return (
             <div className="border border-gray-300 rounded  bg-white">
                 <div className="flex flex-col space-y-1.5 p-6">

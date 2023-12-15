@@ -39,6 +39,8 @@ export const updateNote = async (id, updatedNote, token) => {
     });
     const currentNote = currentNoteResponse.data;
 
+    currentNote.Title = updatedNote.title;
+    currentNote.Description = updatedNote.content;
     currentNote.IsArchived = updatedNote.archived;
 
     const response = await axios.put(`${API_URL}/notes/${id}`, currentNote, {

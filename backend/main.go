@@ -9,8 +9,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// main is the entry point of the application.
 func main() {
+	// DBConnection establishes a connection to the database.
 	config.DBConnection()
+
+	// AutoMigrate automatically migrates the database schema for the User and Note models.
 	err := config.DB.AutoMigrate(&models.User{}, &models.Note{})
 	if err != nil {
 		panic(err)
@@ -18,7 +22,7 @@ func main() {
 
 	r := gin.Default()
 
-	// CORS
+	// CORS configuration
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
@@ -34,5 +38,7 @@ func main() {
 	r.POST("/notes", middleware.AuthMiddleware(), controllers.CreateNote)
 	r.PUT("/notes/:id", middleware.AuthMiddleware(), controllers.UpdateNote)
 	r.DELETE("/notes/:id", middleware.AuthMiddleware(), controllers.DeleteNote)
-	r.Run(":3000") // listen and serve on :3000
+
+	// Run the application on port 3000
+	r.Run(":3000")
 }
