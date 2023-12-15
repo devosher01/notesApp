@@ -1,9 +1,10 @@
 import React from 'react';
 
-const CustomInput = ({ defaultValue, id, type, placeholder }) => {
+const CustomInput = ({ defaultValue,onChange, id, type, placeholder }) => {
     return (
         <input
             defaultValue={defaultValue}
+            onChange={onChange}
             id={id}
             type={type}
             placeholder={placeholder}

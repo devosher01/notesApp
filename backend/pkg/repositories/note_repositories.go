@@ -5,10 +5,10 @@ import (
 	"github.com/devosher01/backend/pkg/models"
 )
 
-func GetAllNotes() ([]models.Note, error) {
-	var notes []models.Note
-	result := config.DB.Find(&notes)
-	return notes, result.Error
+func GetAllNotes(userID uint) ([]models.Note, error) {
+    var notes []models.Note
+    result := config.DB.Where("user_id = ?", userID).Find(&notes)
+    return notes, result.Error
 }
 
 func GetNote(id string) (models.Note, error) {

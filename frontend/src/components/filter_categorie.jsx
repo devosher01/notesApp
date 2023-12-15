@@ -1,4 +1,3 @@
-// En FilterCategories.jsx
 import React from "react";
 
 export default function FilterCategories({ selectedCategories, setSelectedCategories }) {

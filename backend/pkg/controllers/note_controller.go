@@ -1,15 +1,25 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
+	"github.com/devosher01/backend/pkg/middleware"
 	"github.com/devosher01/backend/pkg/models"
 	"github.com/devosher01/backend/pkg/services"
 	"github.com/gin-gonic/gin"
 )
 
 func GetAllNotes(c *gin.Context) {
-	notes, err := services.GetAllNotes()
+	// Extraer el ID del usuario del contexto.
+	userID, exists := middleware.UserIDFromContext(c)
+	fmt.Println("This is the current User", userID)
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	notes, err := services.GetAllNotes(userID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

@@ -9,13 +9,14 @@ export default function NoteFormCard({ onNoteCreated}) {
 
     useEffect(() => {
         const fetchNotes = async () => {
-            const fetchedNotes = await getNotes();
+            const token = localStorage.getItem('authToken');
+            const fetchedNotes = await getNotes(token);
             setNotes(fetchedNotes);
         };
 
         fetchNotes();
     }, []);
-
+  
     const categories = [
         { id: 1, name: "Trabajo", color: "bg-blue-200 text-blue-800" },
         { id: 2, name: "Personal", color: "bg-green-200 text-green-800" },
@@ -31,22 +32,29 @@ export default function NoteFormCard({ onNoteCreated}) {
 
 
 
-
-    const handleSubmit = async () => {
-        const note = {
-            title: title,
-            description: content,
-            categories: selectedCategories
-        };
-        const newNote = await createNote(note);
-        
-        onNoteCreated(newNote);
+const handleSubmit = () => {
+    console.log("Creating note...");
+    const note = {
+        Title: title,
+        Description: content,
+        Categories: selectedCategories,
+        UserID : parseInt(localStorage.getItem('userID'))
     };
+    console.log(note);
+    const token = localStorage.getItem('authToken');
+    createNote(note, token)
+        .then(newNote => {
+            onNoteCreated(newNote);
+        })
+        .catch(error => {
+            console.error('Error creating note:', error);
+        });
+};
     
     
     const handleAddCategory = (event) => {
         const categoryId = parseInt(event.target.value);
-        if (!selectedCategories.includes(categoryId)) {
+        if (categoryId && !selectedCategories.includes(categoryId)) {
             setSelectedCategories([...selectedCategories, categoryId]);
         }
     };
@@ -86,9 +94,11 @@ export default function NoteFormCard({ onNoteCreated}) {
                             Categories
                         </label>
                         <select
+                            value={selectedCategories.length > 0 ? selectedCategories[0] : ""}
                             id="categories"
                             onChange={handleAddCategory}
                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <option value="">Selecciona una categoría</option>
                             {categories.map((category) => (
                                 <option key={category.id} value={category.id}>
                                     {category.name}

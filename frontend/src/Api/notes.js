@@ -1,40 +1,59 @@
 import axios from 'axios';
+import { API_URL } from './config';
 
-const API_URL = 'http://localhost:3000/notes'; 
-
-export const getNotes = async () => {
-    const response = await axios.get(`${API_URL}`);
-    // console.log(response.data);
-    return response.data;
-};
-
-export const getNote = async (id) => {
-    const response = await axios.get(`${API_URL}/${id}`);
-    return response.data;
-}
-
-export const createNote = async (note) => {
-    const response = await axios.post(`${API_URL}`, note);
+export const getNotes = async (token) => {
+    console.log("Estoy en getNotes", "token: ", token);
+    const response = await axios.get(`${API_URL}/notes`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     console.log(response.data);
     return response.data;
 };
 
-export const updateNote = async (id, updatedNote) => {
-    // Obtén la nota actual
-    const currentNoteResponse = await axios.get(`${API_URL}/${id}`);
+// export const getNote = async (id, token) => {
+//     const response = await axios.get(`${API_URL}/notes/${id}`, {
+//         headers: {
+//             'Authorization': `Bearer ${token}`
+//         }
+//     });
+//     return response.data;
+// }
+
+export const createNote = async (note, token) => {
+    console.log("Estoy en createNote", "note: ", note, "token: ", token);
+    const response = await axios.post(`${API_URL}/notes`, note, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.data;
+};
+
+export const updateNote = async (id, updatedNote, token) => {
+    const currentNoteResponse = await axios.get(`${API_URL}/notes/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     const currentNote = currentNoteResponse.data;
 
     currentNote.IsArchived = updatedNote.archived;
 
-    console.log("Nota a actualizar", currentNote);
-    const response = await axios.put(`${API_URL}/${id}`, currentNote);
-    console.log("Respuesta de la API", response.data);
+    const response = await axios.put(`${API_URL}/notes/${id}`, currentNote, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     return response.data;
 };
 
-export const deleteNote = async (id) => {
-    console.log("Eliminando nota con id: " + id);
-    const response = await axios.delete(`${API_URL}/${id}`);
+export const deleteNote = async (id, token) => {
+    const response = await axios.delete(`${API_URL}/notes/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     return response.data;
 };
-

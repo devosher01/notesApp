@@ -5,8 +5,8 @@ import (
 	"github.com/devosher01/backend/pkg/repositories"
 )
 
-func GetAllNotes() ([]models.Note, error) {
-	return repositories.GetAllNotes()
+func GetAllNotes(userID uint) ([]models.Note, error) {
+    return repositories.GetAllNotes(userID)
 }
 
 func GetNote(id string) (models.Note, error) {
