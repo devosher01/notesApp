@@ -1,6 +1,6 @@
 # Backend Server
 
-Este proyecto es una API RESTful construida con Go y Gin que proporciona funcionalidades de autenticación y gestión de notas.
+Este proyecto es una API RESTful construida con Go y Gin que proporciona funcionalidades de autenticación y gestión de notas. Utiliza GORM como ORM para interactuar con la base de datos PostgreSQL.
 
 ## Tabla de contenidos
 
@@ -12,7 +12,7 @@ Este proyecto es una API RESTful construida con Go y Gin que proporciona funcion
 
 ## Descripción
 
-Este proyecto es una API RESTful que permite a los usuarios registrarse, iniciar sesión y gestionar notas. La API está construida con Go y utiliza el framework Gin para manejar las solicitudes HTTP. La autenticación se realiza mediante tokens JWT y los datos se almacenan en una base de datos PostgreSQL.
+Este proyecto es una API RESTful que permite a los usuarios registrarse, iniciar sesión y gestionar notas. La API está construida con Go y utiliza el framework Gin para manejar las solicitudes HTTP. La autenticación se realiza mediante tokens JWT. Utiliza GORM, un ORM para Go, para interactuar con la base de datos PostgreSQL.
 
 ## Instalación
 
