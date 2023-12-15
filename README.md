@@ -46,7 +46,33 @@ Ejecuta npm run dev para iniciar el servidor de desarrollo.
 
 ### Backend (Directorio: backend)
 
-La carpeta backend contiene el código del servidor, desarrollado en Go.
+Ejecución del Backend en Go
+Prerequisitos
+Asegúrate de tener Docker instalado en tu máquina.
+Asegúrate de tener Go instalado en tu máquina.
+Configuración de PostgreSQL con Docker
+Navega al directorio backend de tu proyecto.
+
+bash
+Copy code
+cd tu-proyecto/backend
+Ejecuta el siguiente comando para iniciar un contenedor de PostgreSQL:
+
+bash
+Copy code
+docker run -d --name my_postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=qwertyuiop -e POSTGRES_DB=postgres -p 5432:5432 postgres:latest
+Ejecución del Backend
+Asegúrate de estar en el directorio backend de tu proyecto.
+
+bash
+Copy code
+cd JavierHernandezGomez-923f17/backend
+Ejecuta el siguiente comando para iniciar el backend de Go:
+
+bash
+Copy code
+go run main.go
+Si todo va bien, verás el mensaje "DB connected successfully" indicando que la conexión con la base de datos se ha establecido.
 
 
 
