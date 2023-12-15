@@ -22,17 +22,14 @@ export default function SignUpPage() {
 
     const handleRegister = async () => {
         try {
-            // Validate form data
             await schema.validate({ username, email, password });
 
             await register({ username, email, password });
             navigate('/');
         } catch (error) {
             if (error instanceof yup.ValidationError) {
-              // Handle validation errors
               console.error(error.errors);
             } else {
-              // Handle other errors
               console.error(error);
             }
         }
