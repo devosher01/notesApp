@@ -31,7 +31,10 @@ frontend/
 │   ├── NotesPage.jsx
 │   └── SignUpPage.jsx
 └── private_route.jsx
-Despliegue del Frontend
+
+
+
+## Despliegue del Frontend
 Asegúrate de tener Node.js instalado en tu máquina. Abre una terminal en la carpeta frontend.
 
 Ejecuta npm install para instalar las dependencias.
