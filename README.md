@@ -8,6 +8,8 @@ Este proyecto consta de dos partes: el backend, desarrollado en Go, y el fronten
 
 La carpeta frontend contiene el código del cliente, desarrollado con React y Vite.
 
+
+
 ```plaintext
 frontend/
 ├── Api
@@ -34,13 +36,19 @@ frontend/
 
 
 
+
 ## Despliegue del Frontend
+
 Asegúrate de tener Node.js instalado en tu máquina. Abre una terminal en la carpeta frontend.
 
 Ejecuta npm install para instalar las dependencias.
 Ejecuta npm run dev para iniciar el servidor de desarrollo.
-Backend (Directorio: backend)
+
+### Backend (Directorio: backend)
+
 La carpeta backend contiene el código del servidor, desarrollado en Go.
+
+
 
 plaintext
 Copy code
