@@ -42,6 +42,4 @@ Start-Process "http://localhost:5173"
 # Esperar 20 segundos para cerrar el script
 Start-Sleep -Seconds 20
 
-```
-
 
