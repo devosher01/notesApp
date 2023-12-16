@@ -8,7 +8,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado Docker y de que el 
 2. Haz clic derecho en el archivo `initialscript.ps1`.
 3. Selecciona la opción "Ejecutar con PowerShell" en el menú contextual.
 
-El script `initialscript.ps1` se encargará de configurar y ejecutar el proyecto correctamente, lo  que se traduce es que se inmediato se abrirá el navegador con la aplicaión funcionando correctamente.
+El script `initialscript.ps1` se encargará de configurar y ejecutar el proyecto correctamente. Una vez que el script se haya completado, se abrirá de inmediato el navegador con la aplicación funcionando correctamente.
 
 Si todo va bien, podrás ver el proyecto en funcionamiento una vez que el script haya finalizado su ejecución.
 
