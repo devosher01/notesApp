@@ -16,7 +16,12 @@ Si todo va bien, podrás ver el proyecto en funcionamiento una vez que el script
 ## Instrucciones de Uso
 
 - Inicie el proceso de registro en la aplicación a través de la opción "Sign Up".
+  - Asegúrate de que el correo electrónico proporcionado durante el registro sea válido.
+  - La contraseña debe tener más de 8 caracteres.
 
-- Una vez registrado, será redirigido a la pantalla de "Log in". Aquí, debe ingresar las credenciales (nombre de usuario y contraseña) que utilizó durante el registro para autenticarse.
+- Una vez registrado, serás redirigido a la pantalla de "Log in". Aquí, debes ingresar las credenciales (nombre de usuario y contraseña) que utilizaste durante el registro para autenticarte.
 
-- Una vez autenticado correctamente, tendrá acceso a la pantalla de notas. Aquí, podrá crear nuevas notas (incluyendo título, contenido y categorías), editar notas existentes, archivarlas y eliminarlas.
+- Después de autenticarte correctamente, tendrás acceso a la pantalla de notas. Aquí, podrás:
+  - Crear nuevas notas, incluyendo título, contenido y categorías.
+  - Editar notas existentes.
+  - Archivar y eliminar notas según sea necesario.

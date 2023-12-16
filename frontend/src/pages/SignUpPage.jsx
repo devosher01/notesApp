@@ -28,9 +28,11 @@ export default function SignUpPage() {
             navigate('/');
         } catch (error) {
             if (error instanceof yup.ValidationError) {
-              console.error(error.errors);
+                alert(error.errors.join('\n'));
+                console.error(error.errors);
             } else {
-              console.error(error);
+                alert(error.mes)
+                console.error(error.mes);
             }
         }
     };

@@ -1,1 +1,1 @@
-export const API_URL = 'https://backend-server-1.fly.dev';
+export const API_URL = 'http://localhost:8080';
